@@ -1,11 +1,11 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import "./App.css";
-import Main from "../src/pages/main";
-import Auth from "../src/pages/auth";
+import React from "react";
+import Main from "./components/main/Main";
+import Auth from "./pages/auth/Auth";
 
 function App() {
   return (
-    // eslint-disable-next-line react/react-in-jsx-scope
     <div className="App">
       <BrowserRouter>
         <Routes>
