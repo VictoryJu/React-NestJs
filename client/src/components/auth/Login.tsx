@@ -3,6 +3,7 @@ import styled from "styled-components";
 import Button from "../../presentational/Button";
 import Input from "../../presentational/Input";
 import Title from "../../presentational/Title";
+import Api from "../../service/api";
 
 const LoginContainer = styled.div`
   padding-top: 100px;
@@ -18,6 +19,15 @@ const LoginButton = styled(Button)`
   }
 `;
 
+const login = async (id: string, password: string) => {
+  const body = {
+    id,
+    password,
+  };
+  const res = await Api.post("/login", body);
+  console.log(res);
+};
+
 export default class Login extends Component {
   render() {
     return (
@@ -31,7 +41,7 @@ export default class Login extends Component {
         </div>
         <div style={{ marginTop: "20px" }}>
           <LoginButton
-            width={550}
+            width={580}
             height={50}
             padding={15}
             description={"로그인"}

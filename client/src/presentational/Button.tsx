@@ -13,9 +13,9 @@ function con(props: ButtonType) {
 }
 
 const ButtonStyle = styled.button<ButtonType>`
-  width: ${(props) => props.width + "px"}
-  height: ${(props) => props.height + "px"}
-  padding: ${(props) => props.width + "px"}
+  width: ${(props) => props.width + "px;"}
+  height: ${(props) => props.height + "px;"}
+  padding: ${(props) => props.padding + "px;"}
 `;
 
 const Button = (props: ButtonType) => {
