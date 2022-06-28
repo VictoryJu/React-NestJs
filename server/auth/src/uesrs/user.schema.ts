@@ -1,11 +1,6 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document, SchemaOptions } from 'mongoose';
 
-type UserType = {
-  id: string;
-  password: string;
-};
-
 const options: SchemaOptions = {
   timestamps: true,
 };
@@ -23,6 +18,18 @@ export class User extends Document {
   })
   @Prop()
   password: string;
+
+  readonly readOnlyData: {
+    id: string;
+    password: string;
+  };
 }
 
 export const UserSchema = SchemaFactory.createForClass(User);
+
+UserSchema.virtual('readOnlyData').get(function (this: User) {
+  return {
+    id: this.id,
+    password: this.password,
+  };
+});

@@ -1,4 +1,5 @@
 import {
+  Body,
   Controller,
   Get,
   HttpException,
@@ -6,12 +7,17 @@ import {
   UseFilters,
 } from '@nestjs/common';
 import { ApiOperation, ApiResponse } from '@nestjs/swagger';
+import { AuthService } from 'src/auth/auth.service';
+import { LoginRequestDto } from 'src/auth/dto/login.request.dto';
 import { UsersService } from './users.service';
 
 @UseFilters(HttpException)
 @Controller('user')
 export class UsersController {
-  constructor(private readonly usersService: UsersService) {}
+  constructor(
+    private readonly usersService: UsersService,
+    private readonly authService: AuthService,
+  ) {}
 
   @Get()
   getAllUser() {
@@ -33,7 +39,7 @@ export class UsersController {
   })
   @ApiOperation({ summary: '로그인' })
   @Post('login')
-  async login() {
-    return 'login';
+  login(@Body() data: LoginRequestDto) {
+    return this.authService.jwtLogIn(data);
   }
 }

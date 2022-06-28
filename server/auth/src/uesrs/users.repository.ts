@@ -5,14 +5,12 @@ import { User } from './user.schema';
 
 @Injectable()
 export class UsersRepository {
-  constructor(@InjectModel(User.id) private readonly userModel: Model<User>) {}
+  constructor(
+    @InjectModel(User.name) private readonly userModel: Model<User>,
+  ) {}
 
-  async existsById(id: string): Promise<boolean> {
-    try {
-      const result = await this.userModel.exists({ id });
-      return result;
-    } catch {
-      throw new HttpException('db error', 400);
-    }
+  async findUserById(id: any): Promise<User | null> {
+    const user = await this.userModel.findOne({ id });
+    return user;
   }
 }
