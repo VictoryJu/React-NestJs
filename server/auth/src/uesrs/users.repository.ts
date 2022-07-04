@@ -13,4 +13,15 @@ export class UsersRepository {
     const user = await this.userModel.findOne({ id });
     return user;
   }
+
+  //password를 제외하고 가져옴 select("-password") 보안상의 이유로 password를 가져오지않음
+  async findCatByIdWithoutPassword(userId: string): Promise<User | null> {
+    const user = await this.userModel.findById(userId).select('-password');
+    return user;
+  }
+
+  async findAll() {
+    const users = await this.userModel.find();
+    return users;
+  }
 }

@@ -19,11 +19,6 @@ export class UsersController {
     private readonly authService: AuthService,
   ) {}
 
-  @Get()
-  getAllUser() {
-    return 'all User';
-  }
-
   @Get(':id')
   getUser() {
     return 'user';
@@ -41,5 +36,11 @@ export class UsersController {
   @Post('login')
   login(@Body() data: LoginRequestDto) {
     return this.authService.jwtLogIn(data);
+  }
+
+  @ApiOperation({ summary: '유저 정보 가져오기' })
+  @Get('all')
+  getAllUser() {
+    return this.usersService.getAllUser();
   }
 }

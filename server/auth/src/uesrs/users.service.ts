@@ -13,4 +13,10 @@ export class UsersService {
       throw new UnauthorizedException('해당하는 유저가 없습니다.');
     }
   }
+
+  async getAllUser() {
+    const users = await this.userRepository.findAll();
+    const readOnlyUsers = users.map((cat) => cat.readOnlyData);
+    return readOnlyUsers;
+  }
 }
