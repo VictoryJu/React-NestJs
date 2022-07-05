@@ -1,6 +1,6 @@
 import { HttpException, Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
-import { Model } from 'mongoose';
+import mongoose, { Model } from 'mongoose';
 import { User } from './user.schema';
 
 @Injectable()
@@ -20,8 +20,7 @@ export class UsersRepository {
     return user;
   }
 
-  async findAll() {
-    const users = await this.userModel.find();
-    return users;
+  async findAll(): Promise<any> {
+    return await this.userModel.find();
   }
 }
