@@ -3,13 +3,21 @@ import styled from "styled-components";
 import Button from "../../presentational/Button";
 import Input from "../../presentational/Input";
 import Title from "../../presentational/Title";
-import Api from "../../service/api";
+import Api from "../../service/Api";
 
 const LoginContainer = styled.div`
   padding-top: 100px;
   width: 100%;
   text-align: center;
 `;
+
+const NameInput = styled(Input).attrs((props) => ({
+  type: "text",
+}));
+
+const PasswordInput = styled(Input).attrs((props) => ({
+  type: "password",
+}));
 
 const LoginButton = styled(Button)`
   &:hover {
@@ -28,6 +36,13 @@ const login = async (id: string, password: string) => {
   console.log(res);
 };
 
+const getUserData = async () => {
+  const res = await Api.get("/");
+  console.log("클리=ㄱ했삼");
+
+  console.log(res);
+};
+
 export default class Login extends Component {
   render() {
     return (
@@ -41,6 +56,9 @@ export default class Login extends Component {
         </div>
         <div style={{ marginTop: "20px" }}>
           <LoginButton
+            onClick={async (): Promise<any> => {
+              await getUserData();
+            }}
             width={580}
             height={50}
             padding={15}

@@ -14,7 +14,7 @@ export class UsersService {
     }
   }
 
-  async getAllUser() {
+  async getAllUser(): Promise<any> {
     const users = await this.userRepository.findAll();
     const readOnlyUsers = users.map((cat) => cat.readOnlyData);
     return readOnlyUsers;

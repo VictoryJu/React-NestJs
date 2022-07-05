@@ -6,6 +6,7 @@ type ButtonType = {
   height: number;
   padding: number;
   description: string;
+  onClick?: (event: React.MouseEvent<HTMLButtonElement>) => void;
 };
 
 function con(props: ButtonType) {
