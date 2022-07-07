@@ -6,17 +6,17 @@ import { UsersRepository } from './users.repository';
 export class UsersService {
   constructor(private readonly userRepository: UsersRepository) {}
 
-  async login(body: UserRequestDto) {
-    const { id, password } = body;
-    const isUserExist = await this.userRepository.findUserById({ id });
-    if (!isUserExist) {
-      throw new UnauthorizedException('해당하는 유저가 없습니다.');
-    }
-  }
+  // async login(body: UserRequestDto) {
+  //   const { id, password } = body;
+  //   const isUserExist = await this.userRepository.findUserById({ id });
+  //   if (!isUserExist) {
+  //     throw new UnauthorizedException('해당하는 유저가 없습니다.');
+  //   }
+  // }
 
-  async getAllUser(): Promise<any> {
+  async getAllUser() {
     const users = await this.userRepository.findAll();
-    const readOnlyUsers = users.map((cat) => cat.readOnlyData);
+    const readOnlyUsers = users.map((user) => user.readOnlyData);
     return readOnlyUsers;
   }
 }

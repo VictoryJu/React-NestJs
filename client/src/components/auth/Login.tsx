@@ -37,10 +37,13 @@ const login = async (id: string, password: string) => {
 };
 
 const getUserData = async () => {
-  const res = await Api.get("/");
-  console.log("클리=ㄱ했삼");
-
-  console.log(res);
+  try {
+    const res = await Api.get("http://localhost:8000/user/all");
+    console.log(res);
+    console.log("클리=ㄱ했삼");
+  } catch (e) {
+    console.log(e);
+  }
 };
 
 export default class Login extends Component {
@@ -55,8 +58,14 @@ export default class Login extends Component {
           <Input width={550} fontSize={15}></Input>
         </div>
         <div style={{ marginTop: "20px" }}>
+          <button
+            onClick={async () => {
+              await getUserData();
+            }}
+            style={{ width: "580px", height: "50px" }}
+          ></button>
           <LoginButton
-            onClick={async (): Promise<any> => {
+            onClick={async () => {
               await getUserData();
             }}
             width={580}
