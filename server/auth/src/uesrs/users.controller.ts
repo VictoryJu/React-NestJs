@@ -36,6 +36,7 @@ export class UsersController {
   //   return this.authService.jwtLogIn(data);
   // }
 
+  @ApiOperation({ summary: '유저 정보 가져오기' })
   @Get('all')
   getAllUser() {
     return this.usersService.getAllUser();
