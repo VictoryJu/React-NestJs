@@ -14,13 +14,8 @@ const LoginContainer = styled.div`
 const IdInput = styled(Input)``;
 const PasswordInput = styled(Input)``;
 
-const LoginButton = styled(Button)`
-  &:hover {
-    transition: 0.3s ease-out;
-    background-color: red;
-    opacity: 0.7;
-  }
-`;
+const LoginButton = styled(Button)``;
+const RegistButton = styled(Button)``;
 
 const login = async (id: string, password: string) => {
   const body = {
@@ -75,15 +70,6 @@ function Login() {
         />
       </div>
       <div style={{ marginTop: "20px" }}>
-        <button
-          onClick={async () => {
-            await getUserData();
-            showInfo();
-          }}
-          style={{ width: "580px", height: "50px" }}
-        >
-          {data}
-        </button>
         <LoginButton
           onClick={async () => {
             await getUserData();
@@ -93,6 +79,18 @@ function Login() {
           padding={15}
           description={"로그인"}
         ></LoginButton>
+      </div>
+      <div style={{ marginTop: "5px" }}>
+        <RegistButton
+          onClick={async () => {
+            await getUserData();
+            showInfo();
+          }}
+          width={580}
+          height={50}
+          padding={15}
+          description={"회원가입"}
+        />
       </div>
     </LoginContainer>
   );
