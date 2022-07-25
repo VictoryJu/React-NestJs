@@ -42,7 +42,7 @@ function Login() {
 
   const getUserData = async () => {
     try {
-      const res = await Api.get("http://localhost:8000/");
+      const res = await Api.get("http://localhost:8000/users");
       console.log(res.data);
       setData(res.data);
     } catch (e) {
