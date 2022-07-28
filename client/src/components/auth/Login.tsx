@@ -1,5 +1,5 @@
 import React, { Component, useState } from "react";
-import { useHistory } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import Button from "../../presentational/Button";
 import Input from "../../presentational/Input";
@@ -31,7 +31,7 @@ function Login() {
     setPassword(e.target.value);
   };
 
-  let history = useHistory();
+  let navigate = useNavigate();
 
   const login = async () => {
     try {
@@ -41,7 +41,7 @@ function Login() {
       });
       console.log(res.data);
       if (res.status === 200) {
-        history.push("/main");
+        navigate("/main");
       }
     } catch (e) {
       console.log(e);
@@ -70,7 +70,7 @@ function Login() {
       </div>
       <div style={{ marginTop: "5px" }}>
         <RegistButton
-          onClick={() => history.push("/regist")}
+          onClick={() => navigate("/regist")}
           width={580}
           height={50}
           padding={15}
