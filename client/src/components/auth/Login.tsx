@@ -1,4 +1,5 @@
 import React, { Component, useState } from "react";
+import { useHistory } from "react-router-dom";
 import styled from "styled-components";
 import Button from "../../presentational/Button";
 import Input from "../../presentational/Input";
@@ -17,17 +18,7 @@ const PasswordInput = styled(Input)``;
 const LoginButton = styled(Button)``;
 const RegistButton = styled(Button)``;
 
-const login = async (id: string, password: string) => {
-  const body = {
-    id,
-    password,
-  };
-  const res = await Api.post("/login", body);
-  console.log(res);
-};
-
 function Login() {
-  const [data, setData] = useState("받아오기전");
   const [userId, setUserId] = useState("");
   const [password, setPassword] = useState("");
 
@@ -40,20 +31,21 @@ function Login() {
     setPassword(e.target.value);
   };
 
-  const getUserData = async () => {
+  let history = useHistory();
+
+  const login = async () => {
     try {
-      const res = await Api.get("http://localhost:8000/users");
+      const res = await Api.post("http://localhost:8000/users/login", {
+        userId,
+        password,
+      });
       console.log(res.data);
-      setData(res.data);
+      if (res.status === 200) {
+        history.push("/main");
+      }
     } catch (e) {
       console.log(e);
     }
-  };
-
-  const showInfo = () => {
-    console.log("불렀다");
-
-    console.log(userId, password);
   };
 
   return (
@@ -63,16 +55,12 @@ function Login() {
         <IdInput onChange={inputUserId} width={550} fontSize={15} />
       </div>
       <div style={{ marginTop: "10px" }}>
-        <PasswordInput
-          onChange={(e) => setUserId(e.target.value)}
-          width={550}
-          fontSize={15}
-        />
+        <PasswordInput onChange={inputUserPassowrd} width={550} fontSize={15} />
       </div>
       <div style={{ marginTop: "20px" }}>
         <LoginButton
           onClick={async () => {
-            await getUserData();
+            await login();
           }}
           width={580}
           height={50}
@@ -82,10 +70,7 @@ function Login() {
       </div>
       <div style={{ marginTop: "5px" }}>
         <RegistButton
-          onClick={async () => {
-            await getUserData();
-            showInfo();
-          }}
+          onClick={() => history.push("/regist")}
           width={580}
           height={50}
           padding={15}
