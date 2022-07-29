@@ -70,7 +70,7 @@ function Login() {
       </div>
       <div style={{ marginTop: "5px" }}>
         <RegistButton
-          onClick={() => navigate("/")}
+          onClick={() => navigate("../regist")}
           width={580}
           height={50}
           padding={15}
