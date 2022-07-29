@@ -31,7 +31,7 @@ function Login() {
     setPassword(e.target.value);
   };
 
-  let navigate = useNavigate();
+  const navigate = useNavigate();
 
   const login = async () => {
     try {
@@ -70,7 +70,7 @@ function Login() {
       </div>
       <div style={{ marginTop: "5px" }}>
         <RegistButton
-          onClick={() => navigate("/regist")}
+          onClick={() => navigate("/")}
           width={580}
           height={50}
           padding={15}
