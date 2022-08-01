@@ -1,7 +1,11 @@
-import React, { Component } from "react";
+import React, { Suspense } from "react";
 
-export default class Main extends Component {
-  render() {
-    return <div>Main</div>;
-  }
+export default function Main() {
+  return (
+    <div>
+      <Suspense fallback={<>페이지 로딩중...</>}>
+        <div>메인페이지</div>
+      </Suspense>
+    </div>
+  );
 }
