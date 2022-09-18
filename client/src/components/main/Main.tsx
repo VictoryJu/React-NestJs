@@ -1,6 +1,7 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useQuery } from "react-query";
+import { Link, useNavigate } from "react-router-dom";
 import Api from "../../service/Api";
 
 interface IUser {
@@ -14,10 +15,13 @@ const Main = () => {
     const { data } = await Api.get("http://localhost:8000/users");
     return data;
   };
+  const navigate = useNavigate();
+  const goTodo = () => {
+    navigate("/todo");
+  };
 
   const { isLoading, data, error } = useQuery(["users"], getUser);
   if (data) {
-    console.log(data);
     return (
       <>
         {data.map((v: IUser, idx: number) => {
@@ -28,6 +32,7 @@ const Main = () => {
             </div>
           );
         })}
+        <button onClick={() => goTodo()}>Todo로 이동</button>
       </>
     );
   } else if (isLoading) {
