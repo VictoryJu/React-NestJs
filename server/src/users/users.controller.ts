@@ -7,8 +7,19 @@ export class UsersController {
   constructor(private readonly usersService: UsersService) {}
   @Get()
   async getAll() {
-    throw new HttpException('api is broken', 401);
-    return 'get All user';
+    const nameArr = [
+      {
+        id: 1,
+        name: 'choi',
+        age: 25,
+      },
+      {
+        id: 2,
+        name: 'lee',
+        age: 20,
+      },
+    ];
+    return nameArr;
   }
 
   @Post('regist')

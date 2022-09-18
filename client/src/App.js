@@ -8,7 +8,14 @@ import Auth from "./pages/auth/Auth";
 import Todo from "./pages/todo/Todo";
 
 function App() {
-  const client = new QueryClient();
+  const client = new QueryClient({
+    defaultOptions: {
+      queries: {
+        refetchOnWindowFocus: false,
+        refetchOnMount: false,
+      },
+    },
+  });
   return (
     <div className="App">
       <QueryClientProvider client={client}>
