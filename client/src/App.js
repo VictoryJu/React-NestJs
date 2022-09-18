@@ -5,6 +5,7 @@ import "./App.css";
 import React from "react";
 import Main from "./components/main/Main";
 import Auth from "./pages/auth/Auth";
+import Todo from "./pages/todo/Todo";
 
 function App() {
   const client = new QueryClient();
@@ -14,6 +15,7 @@ function App() {
         <BrowserRouter>
           <Routes>
             <Route path="/auth/*" element={<Auth />}></Route>
+            <Route path="/todo/*" element={<Todo />}></Route>
             <Route path="/" element={<Main />}></Route>
           </Routes>
         </BrowserRouter>
