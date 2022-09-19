@@ -37,7 +37,14 @@ const Main = () => {
     );
   } else if (isLoading) {
     return <h1>... isLoading</h1>;
-  } else return;
+  } else if (error) {
+    return (
+      <div>
+        <h1>... isError</h1>
+        <button onClick={() => goTodo()}>Todo로 이동</button>
+      </div>
+    );
+  } else return <></>;
 };
 
 export default Main;

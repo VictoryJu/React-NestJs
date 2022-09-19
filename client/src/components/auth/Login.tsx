@@ -5,6 +5,8 @@ import Button from "../../presentational/Button";
 import Input from "../../presentational/Input";
 import Title from "../../presentational/Title";
 import Api from "../../service/Api";
+import { useRecoilState } from "recoil";
+import { tokenState } from "../../states/tokenState";
 
 const LoginContainer = styled.div`
   padding-top: 100px;
@@ -32,7 +34,7 @@ function Login() {
   };
 
   const navigate = useNavigate();
-
+  const [token, setToken] = useRecoilState(tokenState);
   const login = async () => {
     try {
       const res = await Api.post("http://localhost:8000/users/login", {
@@ -41,11 +43,16 @@ function Login() {
       });
       console.log(res.data);
       if (res.status === 200) {
+        setToken(true);
         navigate("/main");
       }
     } catch (e) {
       console.log(e);
     }
+  };
+  const tempLogin = () => {
+    setToken(true);
+    navigate("/todo");
   };
 
   return (
@@ -60,7 +67,7 @@ function Login() {
       <div style={{ marginTop: "20px" }}>
         <LoginButton
           onClick={async () => {
-            await login();
+            await tempLogin();
           }}
           width={580}
           height={50}

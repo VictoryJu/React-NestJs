@@ -4,6 +4,8 @@ import { DragDropContext, Draggable, Droppable } from "react-beautiful-dnd";
 import DragItem from "./DragItem";
 import { FlexBox } from "../../presentational/Wrap";
 import { ISlotItem, ISlotList } from "../../interface/Drag";
+import { useRecoilState } from "recoil";
+import { tokenState } from "../../states/tokenState";
 
 const Input = styled.input`
   padding: 10px;
@@ -12,6 +14,7 @@ const Input = styled.input`
 `;
 
 function DragMain() {
+  const [token] = useRecoilState(tokenState);
   const [todo, setTodo] = useState("");
   const arr = ["todo", "done"];
   const [userItem, setUserItem] = useState<ISlotItem>({
@@ -20,6 +23,10 @@ function DragMain() {
     dropId: arr[0],
     isDone: false,
   });
+
+  useEffect(() => {
+    console.log(token);
+  }, [token]);
 
   const [userList, setUserList] = useState<ISlotList>({
     userItems: [userItem],
@@ -126,60 +133,64 @@ function DragMain() {
 
   return (
     <>
-      <div style={{ display: "flex", justifyContent: "center" }}>
-        <DragDropContext onDragEnd={(result) => onDragEnd(result)}>
-          {arr.map((v, idx) => {
-            return (
-              <>
-                <div
-                  key={idx}
-                  style={{ display: "flex", flexDirection: "column", gap: 5 }}
-                >
-                  <h1 style={{ textAlign: "center" }}>{v}</h1>
-                  {v === "todo" ? (
-                    <FlexBox
-                      style={{
-                        justifyContent: "space-between",
-                        padding: "0px 5px",
+      {token ? (
+        <div style={{ display: "flex", justifyContent: "center" }}>
+          <DragDropContext onDragEnd={(result) => onDragEnd(result)}>
+            {arr.map((v, idx) => {
+              return (
+                <>
+                  <div
+                    key={idx}
+                    style={{ display: "flex", flexDirection: "column", gap: 5 }}
+                  >
+                    <h1 style={{ textAlign: "center" }}>{v}</h1>
+                    {v === "todo" ? (
+                      <FlexBox
+                        style={{
+                          justifyContent: "space-between",
+                          padding: "0px 5px",
+                        }}
+                      >
+                        <Input onChange={(e) => setTodo(e.target.value)} />
+                        <img
+                          onClick={(e) => addTodo(todo)}
+                          style={{ cursor: "pointer" }}
+                          src="/imgs/add_box.svg"
+                        ></img>
+                      </FlexBox>
+                    ) : (
+                      <div style={{ height: 48 }}></div>
+                    )}
+
+                    <Droppable droppableId={v} key={v}>
+                      {(provided, snapshot) => (
+                        <div
+                          {...provided.droppableProps}
+                          ref={provided.innerRef}
+                          style={getListStyle(snapshot.isDraggingOver)}
+                          className={v}
+                        >
+                          {resultUserDatas(v)}
+                          {provided.placeholder}
+                        </div>
+                      )}
+                    </Droppable>
+                    <button
+                      onClick={(e) => {
+                        showListInfo(v);
                       }}
                     >
-                      <Input onChange={(e) => setTodo(e.target.value)} />
-                      <img
-                        onClick={(e) => addTodo(todo)}
-                        style={{ cursor: "pointer" }}
-                        src="/imgs/add_box.svg"
-                      ></img>
-                    </FlexBox>
-                  ) : (
-                    <div style={{ height: 48 }}></div>
-                  )}
-
-                  <Droppable droppableId={v} key={v}>
-                    {(provided, snapshot) => (
-                      <div
-                        {...provided.droppableProps}
-                        ref={provided.innerRef}
-                        style={getListStyle(snapshot.isDraggingOver)}
-                        className={v}
-                      >
-                        {resultUserDatas(v)}
-                        {provided.placeholder}
-                      </div>
-                    )}
-                  </Droppable>
-                  <button
-                    onClick={(e) => {
-                      showListInfo(v);
-                    }}
-                  >
-                    정보
-                  </button>
-                </div>
-              </>
-            );
-          })}
-        </DragDropContext>
-      </div>
+                      정보
+                    </button>
+                  </div>
+                </>
+              );
+            })}
+          </DragDropContext>
+        </div>
+      ) : (
+        <div>로그인이 필요합니다.</div>
+      )}
     </>
   );
 }
