@@ -13,6 +13,7 @@ interface IUser {
 const Main = () => {
   const getUser = async () => {
     const { data } = await Api.get("http://localhost:8000/users");
+    console.log(data.isLoading);
     return data;
   };
   const navigate = useNavigate();
@@ -20,7 +21,7 @@ const Main = () => {
     navigate("/todo");
   };
 
-  const { isLoading, data, error } = useQuery(["users"], getUser);
+  const { isFetching, data, error } = useQuery(["users"], getUser);
   if (data) {
     return (
       <>
@@ -35,7 +36,7 @@ const Main = () => {
         <button onClick={() => goTodo()}>Todo로 이동</button>
       </>
     );
-  } else if (isLoading) {
+  } else if (isFetching) {
     return <h1>... isLoading</h1>;
   } else if (error) {
     return (

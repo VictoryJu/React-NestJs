@@ -4,7 +4,7 @@ import { DragDropContext, Draggable, Droppable } from "react-beautiful-dnd";
 import DragItem from "./DragItem";
 import { FlexBox } from "../../presentational/Wrap";
 import { ISlotItem, ISlotList } from "../../interface/Drag";
-import { useRecoilState } from "recoil";
+import { useRecoilValue } from "recoil";
 import { tokenState } from "../../states/tokenState";
 
 const Input = styled.input`
@@ -14,7 +14,7 @@ const Input = styled.input`
 `;
 
 function DragMain() {
-  const [token] = useRecoilState(tokenState);
+  const token = useRecoilValue(tokenState);
   const [todo, setTodo] = useState("");
   const arr = ["todo", "done"];
   const [userItem, setUserItem] = useState<ISlotItem>({
