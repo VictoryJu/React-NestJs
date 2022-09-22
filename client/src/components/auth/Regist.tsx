@@ -5,14 +5,15 @@ import Button from "../../presentational/Button";
 import Input from "../../presentational/Input";
 import Api from "../../service/Api";
 
-function Regist() {
-  const IdInput = styled(Input)``;
-  const PasswordInput = styled(Input).attrs({
-    type: "password",
-  })``;
-  const EmailInput = styled(Input)``;
+const IdInput = styled(Input)``;
+const PasswordInput = styled(Input).attrs({
+  type: "password",
+})``;
+const EmailInput = styled(Input)``;
 
-  const RegistButton = styled(Button)``;
+const RegistButton = styled(Button)``;
+
+function Regist() {
   const [inputs, setInputs] = useState({
     userId: "",
     password: "",
@@ -21,13 +22,11 @@ function Regist() {
   const { userId, password, email } = inputs;
 
   const onChange = (e: React.ChangeEvent<HTMLInputElement>, type: string) => {
-    console.log(type);
     const value = e.target.value;
     setInputs({
       ...inputs,
       [type]: value,
     });
-    console.log(inputs);
   };
 
   const navigate = useNavigate();
