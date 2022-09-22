@@ -7,14 +7,29 @@ import Api from "../../service/Api";
 
 function Regist() {
   const IdInput = styled(Input)``;
-  const PasswordInput = styled(Input).attrs({ type: "password" })``;
+  const PasswordInput = styled(Input).attrs({
+    type: "password",
+  })``;
   const EmailInput = styled(Input)``;
 
   const RegistButton = styled(Button)``;
+  const [inputs, setInputs] = useState({
+    userId: "",
+    password: "",
+    email: "",
+  });
+  const { userId, password, email } = inputs;
 
-  const [userId, setUserId] = useState("");
-  const [password, setPassword] = useState("");
-  const [email, setEmail] = useState("");
+  const onChange = (e: React.ChangeEvent<HTMLInputElement>, type: string) => {
+    console.log(type);
+    const value = e.target.value;
+    setInputs({
+      ...inputs,
+      [type]: value,
+    });
+    console.log(inputs);
+  };
+
   const navigate = useNavigate();
   const regist = async () => {
     try {
@@ -37,21 +52,21 @@ function Regist() {
         width={550}
         fontSize={14}
         onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-          setUserId(e.target.value)
+          onChange(e, "userId")
         }
       />
       <PasswordInput
         width={550}
         fontSize={14}
         onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-          setPassword(e.target.value)
+          onChange(e, "password")
         }
       />
       <EmailInput
         width={550}
         fontSize={14}
         onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-          setEmail(e.target.value)
+          onChange(e, "email")
         }
       />
       <RegistButton
