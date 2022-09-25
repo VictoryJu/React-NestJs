@@ -1,4 +1,4 @@
-import React, { Component, useState } from "react";
+import React, { Component, useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import Button from "../../presentational/Button";
@@ -6,41 +6,41 @@ import Input from "../../presentational/Input";
 import Api from "../../service/Api";
 
 const IdInput = styled(Input)``;
-const PasswordInput = styled(Input).attrs({
-  type: "password",
-})``;
+const PasswordInput = styled(Input)``;
 const EmailInput = styled(Input)``;
 
 const RegistButton = styled(Button)``;
 
 function Regist() {
-  const [inputs, setInputs] = useState({
-    userId: "",
-    password: "",
-    email: "",
-  });
-  const { userId, password, email } = inputs;
+  const userId = useRef("");
+  const password = useRef("");
+  const email = useRef("");
 
-  const onChange = (e: React.ChangeEvent<HTMLInputElement>, type: string) => {
+  useEffect(() => {
+    console.log("바뀐다.");
+  });
+
+  const onChange = (
+    e: React.ChangeEvent<HTMLInputElement>,
+    type: React.MutableRefObject<string>
+  ) => {
     const value = e.target.value;
-    setInputs({
-      ...inputs,
-      [type]: value,
-    });
+    type.current = value;
   };
 
   const navigate = useNavigate();
   const regist = async () => {
     try {
-      const res = await Api.post("http://localhost:8000/users/regist", {
-        userId,
-        password,
-        email,
-      });
-      if (res.status === 200) {
-        alert("회원가입이 성공하였습니다.");
-        navigate("/");
-      }
+      console.log(userId, password, email);
+      // const res = await Api.post("http://localhost:8000/users/regist", {
+      //   userId,
+      //   password,
+      //   email,
+      // });
+      // if (res.status === 200) {
+      //   alert("회원가입이 성공하였습니다.");
+      //   navigate("/");
+      // }
     } catch (e) {
       console.log(e);
     }
@@ -51,21 +51,22 @@ function Regist() {
         width={550}
         fontSize={14}
         onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-          onChange(e, "userId")
+          onChange(e, userId)
         }
       />
       <PasswordInput
         width={550}
         fontSize={14}
         onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-          onChange(e, "password")
+          onChange(e, password)
         }
+        type="password"
       />
       <EmailInput
         width={550}
         fontSize={14}
         onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-          onChange(e, "email")
+          onChange(e, email)
         }
       />
       <RegistButton

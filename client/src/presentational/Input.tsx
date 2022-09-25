@@ -5,6 +5,7 @@ type InputProps = {
   width: number;
   fontSize: number;
   onChange?: (e: any) => void;
+  type?: string;
 };
 
 const InputBox = styled.input<InputProps>`
@@ -21,6 +22,7 @@ const Input = (props: InputProps) => {
       onChange={props.onChange}
       fontSize={props.fontSize}
       width={props.width}
+      type={props.type}
     ></InputBox>
   );
 };
